@@ -5,7 +5,7 @@ from scipy.spatial.distance import cdist
 class ArrayDistance():
 
     @staticmethod
-    def clostst_capsule(map, myPosition):
+    def closest_capsule(map, myPosition):
 
         for i, row in enumerate(map):
             for j,obj in enumerate(row):
