@@ -5,9 +5,14 @@ from scipy.spatial.distance import cdist
 class ArrayDistance():
 
     @staticmethod
-    def closest_capsule(map, myPosition):
+    def closest_capsule(map, myPosition, side):
 
-        for i, row in enumerate(map):
+        if side == 0:
+            field = map[:, 17]
+        else:
+            field = map[:,-17:]
+
+        for i, row in enumerate(field):
             for j,obj in enumerate(row):
                 if obj == PublicFields.CAPSULE:
                     capsule_list = list.append([i,j])
