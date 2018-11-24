@@ -11,8 +11,6 @@ class DirectionConverter:
 
     @staticmethod
     def revert(direction_array):
-        print(direction_array)
         for key, value in DirectionConverter.dictionary.items():
-            print(value)
             if value[0] == direction_array[0] and value[1] == direction_array[1]:
                 return key

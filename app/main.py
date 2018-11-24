@@ -1,22 +1,21 @@
-import random
 import bottle
 import os
 
 from app.dto.PublicGameState import PublicGameState
 from app.dto.PublicPlayer import PublicPlayer
-from app.dto.ReturnDirections import ReturnDirections
 from play import Play
 
-side = None
+
+
 
 
 
 @bottle.post('/start')
 def start():
-
-    # todo: set dynamically
-    side = 0
-    return "SomeFancyTeamName"
+    # Play.score = 0
+    # Play.candy_in_pocket_enemy = 0
+    # Play.candy_in_pocket_self = 0
+    return "Ghosty the Gatekeeper"
 
 
 @bottle.post('/chooseAction')
