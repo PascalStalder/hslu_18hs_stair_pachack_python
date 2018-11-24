@@ -5,7 +5,7 @@ from app.dto.PublicPlayer import PublicPlayer
 class PublicGameState:
     def __init__(self, ext_dict=None):
         self.gameField = [[]]
-        self.publicPlayers = []
+        self.publicPlayers: PublicPlayer = []
         if ext_dict is not None:
             self.__dict__ = ext_dict
 
