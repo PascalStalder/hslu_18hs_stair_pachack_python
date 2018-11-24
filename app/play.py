@@ -1,6 +1,7 @@
 import numpy as np
 
 from AStar import AStar
+from ArrayDistance import ArrayDistance
 from DirectionsConverter import DirectionConverter
 from dto.ReturnDirections import ReturnDirections
 from app.dto.PublicPlayer import PublicPlayer
@@ -41,7 +42,8 @@ class Play:
         best_steps = None
         a_star = AStar()
         enemy_avoid = not self.enemy.weakend
-        a_star.astar(self.map_to_binaray(enemy_avoid), self.me.position, ArrayDistance.closetCapsule())
+        goal = ArrayDistance.clostst_capsule(self.field, self.me.position)
+        a_star.astar(self.map_to_binaray(enemy_avoid), self.me.position, ArrayDistance.clostst_capsule(self.field,self.me.position))
 
     def map_to_binaray(self, enemy_avoid: bool):
         binary_field = []
