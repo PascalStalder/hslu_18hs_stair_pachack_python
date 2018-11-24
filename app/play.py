@@ -19,6 +19,7 @@ class Play:
     last_field = None
     my_last_pos = [0, 0]
     enemy_last_pos = [0, 0]
+    ate_enemy = False
 
     def __init__(self, side, field: np.ndarray, my_player, enemy):
         self.side = side
@@ -71,16 +72,20 @@ class Play:
             goal = [vertical_pos, self.defence_line]
         elif self.me.weakened and self.obj_dist.object_available(PublicFields.CAPSULE):
             goal = self.obj_dist.closest_object(self.me.position, PublicFields.CAPSULE)
-        elif Play.candy_in_pocket_self > 0:
+        elif Play.candy_in_pocket_self > 1:
+            Play.ate_enemy = False
             direction = self.enemy.position[0] - self.me.position[0]
             vertical_pos = copy(self.enemy.position[0])
             vertical_pos = self.correct_vertical(vertical_pos, direction)
             goal = [vertical_pos, self.defence_line]
+        elif Play.ate_enemy:
+            goal = self.obj_dist.closest_object(self.me.position, PublicFields.FOOD)
         elif Play.score <= 0:
             goal = self.obj_dist.closest_object(self.me.position, PublicFields.FOOD)
         elif self.me.weakened:
             goal = self.obj_dist.closest_object(self.me.position, PublicFields.FOOD)
         else:
+            print('Default Move')
             direction = self.enemy.position[0] - self.me.position[0]
             vertical_pos = copy(self.enemy.position[0])
             vertical_pos = self.correct_vertical(vertical_pos, direction)
@@ -118,6 +123,12 @@ class Play:
             binary_field.append(binary_row)
         if enemy_avoid:
             binary_field[self.enemy.position[0]][self.enemy.position[1]] = 1
+            for i in range(-2,2):
+                for j in range(-2,2):
+                    try:
+                        binary_field[self.enemy.position[0]+i][self.enemy.position[1]+j] = 1
+                    except Exception:
+                        pass
         return np.array(binary_field)
 
     def direction_to_field(self, field):
@@ -166,6 +177,7 @@ class Play:
             if not self.enemy_on_our_side():
                 Play.score -= Play.candy_in_pocket_enemy
                 Play.candy_in_pocket_enemy = 0
+                Play.ate_enemy = True
             if not self.me_on_enemy_side():
                 Play.score += Play.candy_in_pocket_self
                 Play.candy_in_pocket_self = 0

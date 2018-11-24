@@ -12,9 +12,9 @@ from play import Play
 
 @bottle.post('/start')
 def start():
-    # Play.score = 0
-    # Play.candy_in_pocket_enemy = 0
-    # Play.candy_in_pocket_self = 0
+    Play.score = 0
+    Play.candy_in_pocket_enemy = 0
+    Play.candy_in_pocket_self = 0
     return "Ghosty the Gatekeeper"
 
 
@@ -29,7 +29,7 @@ def move():
     data.publicPlayers[1]['position'][0] = pos10
     side = data.agent_id
     my_player = PublicPlayer(jsonString=data.publicPlayers[side])
-    enemy = PublicPlayer(jsonString=data.publicPlayers[side + 1 % 2])
+    enemy = PublicPlayer(jsonString=data.publicPlayers[(side + 1) % 2])
 
     field = data.gameField
     return Play(side, field, my_player, enemy).take_turn()
