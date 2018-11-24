@@ -3,25 +3,28 @@ import numpy as np
 
 
 class ArrayDistance():
-    def __init__(self, map, side):
-        self.map = map
+    def __init__(self, field, side):
+        self.field = field
         self.side = side
-
+        self.half_field = int(np.array(self.field).shape[1] / 2)
 
     def getCapsuleList(self):
-        if self.side == 0:
-            field = self.map[:][:int(len(map[:][0]) / 2)]
+        enemy_field = np.array(self.field)
+
+        if self.side == 1:
+            enemy_field = enemy_field[:, :self.half_field]
         else:
-            field = self.map[:][-17:]
+            enemy_field = enemy_field[:, -self.half_field:]
+        print("field shape: ", np.array(enemy_field).shape)
         capsule_list = []
-        field = np.array(field)
-        for i in range(0, field.shape[0]):
-            row = field[i]
+        for i in range(0, enemy_field.shape[0]):
+            row = enemy_field[i]
             for j, obj in enumerate(row):
                 if obj == PublicFields.CAPSULE:
+                    if self.side == 0:
+                        j += self.half_field
                     capsule_list.append([i, j])
         return capsule_list
-
 
     def closest_capsule(self, myPosition):
         capsulePosition = None
