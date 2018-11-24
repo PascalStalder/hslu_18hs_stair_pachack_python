@@ -8,7 +8,8 @@ class ArrayDistance():
         self.side = side
         self.half_field = int(np.array(self.field).shape[1] / 2)
 
-    def getCapsuleList(self):
+
+    def getCapsuleList(self, target):
         enemy_field = np.array(self.field)
 
         if self.side == 1:
@@ -20,16 +21,16 @@ class ArrayDistance():
         for i in range(0, enemy_field.shape[0]):
             row = enemy_field[i]
             for j, obj in enumerate(row):
-                if obj == PublicFields.CAPSULE:
+                if obj == target:
                     if self.side == 0:
                         j += self.half_field
                     capsule_list.append([i, j])
         return capsule_list
 
-    def closest_capsule(self, myPosition):
+    def closest_capsule(self, myPosition, target):
         capsulePosition = None
-        capsule_list = self.getCapsuleList()
-        if self.capsule_available():
+        capsule_list = self.getCapsuleList(target)
+        if self.capsule_available(target):
             distances = [(myPosition[0] - capsule[0]) ** 2 + (myPosition[1] - capsule[1]) ** 2 for capsule in
                          capsule_list]
             result = capsule_list[np.argmin(distances)]
@@ -41,8 +42,8 @@ class ArrayDistance():
         return capsulePosition
 
 
-    def capsule_available(self):
-        if len(self.getCapsuleList()) == 0:
+    def capsule_available(self, target):
+        if len(self.getCapsuleList(target)) == 0:
             return False
         else:
             return True
