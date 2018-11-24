@@ -22,11 +22,16 @@ def start():
 @bottle.post('/chooseAction')
 def move():
     data = PublicGameState(ext_dict=bottle.request.json)
-
+    pos00 = int(data.publicPlayers[0]['position'][1])
+    data.publicPlayers[0]['position'][1] = int(data.publicPlayers[0]['position'][0])
+    data.publicPlayers[0]['position'][0] = pos00
+    pos10 = int(data.publicPlayers[1]['position'][1])
+    data.publicPlayers[1]['position'][1] = int(data.publicPlayers[1]['position'][0])
+    data.publicPlayers[1]['position'][0] = pos10
     side = data.agent_id
-    players = data.publicPlayers
     my_player = PublicPlayer(jsonString=data.publicPlayers[side])
     enemy = PublicPlayer(jsonString=data.publicPlayers[side + 1 % 2])
+
     field = data.gameField
     return Play(side, field, my_player, enemy).take_turn()
 

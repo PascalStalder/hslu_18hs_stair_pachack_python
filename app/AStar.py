@@ -12,7 +12,7 @@ class AStar:
         return (b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2
 
     def astar(self, field, start, goal):
-        neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+        neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
         close_set = set()
         came_from = {}
@@ -59,22 +59,3 @@ class AStar:
 
         return False
 
-
-    '''Here is an example of using my algo with a numpy array,
-       astar(array, start, destination)
-       astar function returns a list of points (shortest path)'''
-
-    nmap = numpy.array([
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
-
-    print(astar(nmap, (0, 0), (10, 13)))
