@@ -171,13 +171,13 @@ class Play:
             enemy_displacement = self.enemy.position[0] - Play.enemy_last_pos[0] + self.enemy.position[1] - Play.enemy_last_pos[1]
             if enemy_displacement > 1 or enemy_displacement < -1:
                 Play.candy_in_pocket_enemy = 0
+                Play.ate_enemy = True
             me_displacement = self.me.position[0] - Play.my_last_pos[0] + self.me.position[1] - Play.my_last_pos[1]
             if me_displacement > 1 or me_displacement < -1:
                 Play.candy_in_pocket_self = 0
             if not self.enemy_on_our_side():
                 Play.score -= Play.candy_in_pocket_enemy
                 Play.candy_in_pocket_enemy = 0
-                Play.ate_enemy = True
             if not self.me_on_enemy_side():
                 Play.score += Play.candy_in_pocket_self
                 Play.candy_in_pocket_self = 0
